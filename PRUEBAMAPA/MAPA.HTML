@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title> Control Temperaturas </title>
+</head>
+
+<body id="body" class="body">
+        <!-- mapa -->
+        <div id="map"></div>
+            <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+            <script src="JS/script.js"></script>
+        </div>
+        <script type="text/javascript" >
+        
+        var userName = "servWebElite";
+        var passWord = "$s3rvW3bEl1t3%";
+            
+        function authenticateUser(user, password){
+            var auth = user + ":" + password;    
+            var hash = btoa(auth); 
+            return "Basic " + hash;
+        };
+            
+        function CallWebAPI() {    
+            var request = new XMLHttpRequest();
+            var autenticate = authenticateUser(userName, passWord);
+                
+                request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+                request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+                request.send();   
+                console.log("Loaded data");    
+                respuesta=JSON.parse(request.response);       
+    
+            salida = respuesta.message.data;   
+            $("#Tabla").append('<tr><th>PLACA</th><th>TEMPERATURA</th><th>HORA</th><th>LUGAR</th><th>UBICACION</th><th>CIUDAD</th><th>EVENTO</th><th>Activo</th><th> Desactivo</th></tr>');
+            $("#Tabla1").append('<tr><th>PLACA</th><th>TEMPERATURA</th><th>HORA</th><th>LUGAR</th><th>DIRECCION</th><th>CIUDAD</th><th>EVENTO</th><th>Activo | Desactivo</th></tr>');
+            $("#Tabla2").append('<tr><th>PLACA</th><th>TEMPERATURA</th><th>HORA</th><th>LUGAR</th><th>DIRECCION</th><th>CIUDAD</th><th>EVENTO</th><th>Activo | Desactivo</th></tr>');
+    
+            for (let index = 0; index < salida.length; index++) {
+                $("#Tabla").append("<tr><td id= 'data"+(index)+"'>"
+                    +salida[index].PLACA+"</td><td>"
+                    +salida[index].TEMPERATURA+"</td><td>"
+                    +salida[index].TIEMPO+"</td><td>"
+                    +salida[index].LUGAR+"</td><td>"
+                    +salida[index].UBICACION+"<a class= fcc-btn href=  https://maps.google.com/?q="
+                    +salida[index].LATITUD+","+salida[index].LONGITUD+"> <i class='bi bi-geo-alt-fill'></i>"+"</a></td><td>"
+                    +salida[index].CIUDAD+"</td><td>"
+                    +salida[index].EVENTO+"</td><td>"
+                    +"&nbsp; &nbsp; <input type ='radio' id ='Activo'  onclick ='prueba()' name = "+salida[index].NOMBRE+" value ="+salida[index].NOMBRE+"> &nbsp; &nbsp;"+"</td><td>"
+                    +"&nbsp; &nbsp; <input type ='radio' id ='Desactivo' onclick='galleta1()' name = "+salida[index].NOMBRE+" value ='Desactivar'> &nbsp; &nbsp;"
+                +"</td></tr>");   
+            }
+        }
+
+    
+</body>
+</html>

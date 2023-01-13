@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <style>
+    table{
+        width: 1500px;
+        border: 1px solid black;
+    }
+
+    td{
+        font-size: 30px;
+        text-align: center;
+        color: red;
+        cursor: pointer;
+    }
+
+    tr.dos{
+        background: blue;
+        width: 1500px;
+    }
+
+    td.dos{
+        width: 100%;
+    }
+
+</style>
+
+</head>
+<body onload="CallWepAPI()">
+<!-- <input type="button" value="click-me" onclick="prueba()"> -->
+
+<table>
+    <tr onclick="prueba()">
+        <td>uno</td>
+        <td>dos</td>
+        <td>tres</td>
+        <td>cuatro</td>
+        <td>cinco</td>
+        <td>seis</td>
+        <td>siete</td>
+        <td>ocho</td>
+        <td>nueve</td>
+        <td>diez</td>
+    </tr>
+</table>
+
+<script>
+    function CallWebAPI(){    
+
+    var request = new XMLHttpRequest();
+    var autenticate = authenticateUser(userName, passWord);
+        
+    request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+    request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+    request.send();   
+    console.log("Loaded data");    
+    respuesta=JSON.parse(request.response);       
+
+    salida = respuesta.message.data;
+        
+    function prueba(){
+    $("tr").after(function () {
+        // return "<tr class = dos>" + "<td class = dos>"+   
+        // for (let index = 0; index < salida.length; index++) {
+        //     let marker3 = L.marker([(salida[index].LATITUD), (salida[index].LONGITUD)]).addTo(map)
+            
+        //     var location = [salida[index].LATITUD, salida[index].LONGITUD];
+        //     var marker = L.marker(location)
+        //     marker.bindPopup('<p class =textoMap>Placa: '+salida[index].PLACA+'</p><p class =textoMap>Latitud: '+salida[index].LATITUD+'</p><p class =textoMap>Longitud: '+salida[index].LONGITUD+'</p>');                marker.addTo(map);
+        // }+ "</td>" + "</tr>";
+    });
+};
+}
+
+    let mapOptions = {
+        center:[4.6989, -74.1478],
+        zoom: 10
+    }
+
+    let map = new L.map('map' , mapOptions);
+
+    let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    map.addLayer(layer);
+</script>
+</body>
+</html>

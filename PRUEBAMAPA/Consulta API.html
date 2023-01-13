@@ -1,0 +1,42 @@
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<table>
+    <tr>
+        <td>Oranges</td>
+        <td>100</td>
+        <td><a href="#" class="toggler" data-prod-cat="1">+</a></td>
+    </tr>
+    <tr class="cat1" style="display:none">
+        <td></td>
+        <td>120</td>
+    </tr>
+    <tr class="cat1" style="display:none">
+        <td></td>
+        <td>140</td>
+    </tr>
+    <tr>
+        <td>Apples</td>
+        <td>100</td>
+        <td><a href="#" class="toggler" data-prod-cat="2">+</a></td>
+    </tr>
+    <tr class="cat2" style="display:none">
+        <td></td>
+        <td>120</td>
+    </tr>
+    <tr class="cat2" style="display:none">
+        <td></td>
+        <td>140</td>
+    </tr>
+</table>
+<style>
+  td{
+    border: 1px solid black;
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    $(".toggler").click(function(e){
+        e.preventDefault();
+        $('.cat'+$(this).attr('data-prod-cat')).toggle();
+    });
+});
+</script>

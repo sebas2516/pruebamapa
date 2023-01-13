@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icono -->
+        <script src="https://Kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+<link rel="stylesheet" href="CSS/Vactivos.css">
+    <title>Control Temperaturas</title>
+
+</head>
+<body id="body" class="body" onload="CallWebAPI()">
+    <!-- Menú -->
+    <div class="container">
+        <!-- Div Logo -->
+            <div class="collapse">
+                <a href=><img src="img/coltrack-horizontal.png" class="logo"></a>
+            </div >
+
+            <!--div menu-->
+                <nav class="navegacion">
+                    <ul class="menu">
+                        <li><a href="index.html"> Inicio </a></li>
+                        <li><a href="vehiculos.html"> Vehiculos </a>
+                            <ul class="submenu">
+                                <li><a href="Vactivos.html"> Activos </a></li>
+                                <li><a href="Vinactivos.html"> Inactivos </a></li>
+                            </ul>
+                        </li>
+                </nav>
+
+        <!-- inicio sesion enlace -->
+        <ul class="menu">
+            <li><a href="index.html"> Logout </a></li>
+        </ul>
+
+    </div>
+    </section>
+  
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><!-- Usando Jquery para maquetar la tabla -->
+    <script type="text/javascript" >
+    var userName = "servWebElite";
+    var passWord = "$s3rvW3bEl1t3%";
+    
+    function authenticateUser(user, password)
+    {
+        var auth = user + ":" + password;    
+        var hash = btoa(auth); 
+        return "Basic " + hash;
+    }
+
+    function CallWebAPI() {    
+      var request = new XMLHttpRequest();
+        var autenticate = authenticateUser(userName, passWord);
+        request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+        request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+        request.send();   
+        respuesta=JSON.parse(request.response);       
+        salida = respuesta.message.data;   
+    
+
+        let mapOptions = {
+            center:[4.6989, -74.1478],
+            zoom: 10
+        }
+
+        let map = new L.map('map' , mapOptions);
+
+        let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        map.addLayer(layer);
+
+
+        // let marker = L.marker([4.61664, -74.06782]).addTo(map)
+
+
+        // let marker2 = L.marker([4.6169, -74.0678]).addTo(map)
+
+        for (let index = 0; index < salida.length; index++) {
+            let marker3 = L.marker([(salida[index].LATITUD), (salida[index].LONGITUD)]).addTo(map)
+        
+        	var location = [salida[index].LATITUD, salida[index].LONGITUD];
+	        var marker = L.marker(location)
+	        marker.bindPopup('<p>Placa: '+salida[index].PLACA+'</p><p>Latitud: '+salida[index].LATITUD+'</p><p>Longitud: '+salida[index].LONGITUD+'</p>');
+	        marker.addTo(map);
+        }
+    }
+
+    </script>
+
+    <!-- <input type="button" value="mapa" onclick="mapa()">     -->
+
+    <section class="datos">
+        <table id="Tabla"></table>
+    </section>
+
+    <!-- Pie de pagina -->
+    <footer class="pie_de_pagina">
+        <div class="grup-dos">
+            <small>&copy; 2022 © Copyright Coltrack SAS. Todos los derechos reservados.
+            </small>
+        </div>
+    </footer>
+</body>
+</html>

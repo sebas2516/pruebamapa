@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <title>prueba1</title>
+</head>
+
+<body id ="body" onload="CallWebAPI()">
+
+    <script type="text/javascript" >
+    var userName = "servWebElite";
+    var passWord = "$s3rvW3bEl1t3%";
+    
+    function authenticateUser(user, password){
+        var auth = user + ":" + password;    
+        var hash = btoa(auth); 
+        return "Basic " + hash;
+    }
+    
+    function CallWebAPI() {    
+        var request = new XMLHttpRequest();
+            var autenticate = authenticateUser(userName, passWord);
+
+            request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+            request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+            request.send();   
+            respuesta=JSON.parse(request.response);   
+
+        salida = respuesta.message.data;   
+
+        $("#Tabla").append('<tr><td><div style="text-align: center">PLACA<div></td><td><div style="text-align: center">CIUDAD<div></td><td><div style="text-align: center">TEMPERATURA<div></td></tr>');
+        for (let index = 0; index < salida.length; index++) {
+            $("#Tabla").append("<tr>"
+                +"<td onclick= 'mapView()' style ='cursor:pointer'><div style='text-align: center'>dato1</div></td>"
+                +"<td><div style='text-align: center'>dato2</div></td>"
+                +"<td><div style='text-align: center'>dato3</div></td>"
+                +"</tr>"
+                +"<tr><td colspan ='3'><p id ='map'></p></td>"
+            );        
+        };
+    };
+
+    function mapView(){
+        // document.getElementById("Tabla1").style.height ="400px"
+        document.getElementById("map").style.display="block";
+
+        for (let index = 0; index < salida.length; index++) {
+                    
+            let mapOptions = {
+                center:[4.61664, -74.06782],
+                zoom: 15
+            }
+        
+            let map = new L.map('map' , mapOptions);
+        
+            let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        
+            map.addLayer(layer);
+        
+            let marker = L.marker([4.61664, -74.06782]).addTo(map)
+        }
+    };
+
+</script>
+
+     <!-- <table id="myTable"> -->
+
+        <!-- <tr>
+          <td>Row1 cell 1</td>
+          <td id="ola">Row1 cell 2</td>
+          <td>Row1 cell 3</td>
+          <td>Row1 cell 4</td>
+          <td>Row1 cell 5</td>
+        </tr>
+    
+        <tr>
+            <td colspan ='8' id="ola1" style="display:none"><p id="map"></p></td>
+            <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+        </tr>
+      
+        <tr>
+          <td>Row2 cell 1</td>
+          <td id="ola">Row2 cell 2</td>
+          <td>Row2 cell 3</td>
+          <td>Row2 cell 4</td>
+          <td>Row2 cell 5</td>
+        </tr>
+       
+      </table>
+      <br> -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        table{
+            margin: 10px;
+        }
+
+        table, td {
+            border: 1px solid black;
+            /* margin: 50px; */
+            width: 900px;
+            height: 30px;
+        }
+    
+        #map{
+            width: 100%;
+            height: 400px;
+            margin:0;  
+            border: 1px solid black;
+            display: none;
+        }
+
+        .button{
+            margin: 60px;
+            width: 70px;
+            background-color: black;
+            color: white;
+            font-size: 16px;
+        }
+        
+        #ola{
+            display:none;
+        }
+
+    </style>
+    
+    <!-- <script>
+
+        $("#Tabla").append('<thead><tr><th> PLACA</th><th>TEMPERATURA</th><th>HORA</th><th>LUGAR</th><th>UBICACION</th><th id =ciudad1 >CIUDAD</th><th>EVENTO</th><th>ESTADO</th></tr></thead>')
+            $("#Tabla").append("<tr><td> Dato1 </td>"
+                +"<td> Dato2 </td>"
+                +"<td> Dato3 </td>"
+                +"<td> Dato4 </td>"
+                +"<td id='row' onclick= 'mapView()'>"
+                +"<td></td.>"
+            +"</tr>"
+            +"<tr id ='hide'><td colspan = '8'><p id = 'map'></p></td></tr>");   
+        // const row = document.getElementById('ola');
+
+        // let elementClicked = false;
+
+        // row.addEventListener('click', function handleClick() {
+        // console.log('element clicked');
+        // document.getElementById("ola1").style.display = "block";
+
+
+        // if (elementClicked) {
+        //     document.getElementById("ola1").style.display = "none";
+        // }
+        // elementClicked = true;
+        // });
+
+
+        // function mapView(){
+        //     document.getElementById("ola1").style.display = "block";
+    
+        //     let mapOptions = {
+        //         center:[4.61664, -74.06782],
+        //         zoom: 10
+        //     }
+    
+        //     let map = new L.map('map' , mapOptions);
+    
+        //     let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    
+        //     map.addLayer(layer);
+    
+        //     let marker = L.marker([4.61664, -74.06782]).addTo(map)
+        // };  
+    </script> -->
+
+    <!-- <table id="Tabla1" style="height:0px; border: 0px; background-color: aqua;">
+        <tr id ='ola'>
+            <td colspan ='3'>
+                <p id ='map'></p>
+            </td>
+        </tr>
+    </table> -->
+
+    <table id="Tabla"></table>
+</body>
+</html>

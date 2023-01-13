@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/vehiculos.css">
+    <link rel="icon" type="image/jpg" href="/img/favicon.ico"/>
+    <title> Vehículos </title>
+</head>
+
+<body id ="body" onload="CallWebAPI()">
+    <header class="header">
+        <div class="main-menu-logo bg-none " id="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="/index.html">
+                        <img src="/img/coltrack-horizontal.png" alt="LogoColtrack" >
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <!-- <li class="nav-item active">
+                                <a class="nav-link" href="/index.html">Inicio</span></a>
+                            </li> -->
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/vehiculos.html">Vehículos</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/iframe.html">Reportes</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/login.html">Logout</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="todo">
+
+        <div class="separador" id="separador">
+            <div class="Elite">
+                <p> VEHICULOS:<img src="https://mlanvprljx6f.i.optimole.com/cb:nPcu.35a45/w:150/h:51/q:mauto/rt:fill/g:ce/https://eliteflower.com/wp-content/uploads/2022/10/Logo-The-Elite-Flower-Horizontal-1-1-1.svg" class="logoElite" alt=""></p>
+            </div>
+        </div>
+
+        <!-- DATOS -->
+        <div class ="datos">
+            <!-- Filtro de datos -->
+            <div class ="filtro">
+                <input type ="text" id ="searchInput" placeholder ="Filtrar por placa" />
+                <button id= "button" class="data" onclick="changeText()"><i class="bi bi-arrow-right-square-fill"></i></button>
+            </div>
+
+            <div class ="dataTable">
+                <table id ="Tabla">
+                    <tbody id  ="datos">
+                        <tr id ='ola'>
+                            <td colspan ='8'>
+                                <p id ='map'></p>
+                            </td>
+                        </tr>                    
+                    </tbody>
+                </table>
+            </div>
+            <!--<div id ="map">-->
+                <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+                <!-- <script src="JS/script.js"></script>  -->
+            <!--</div>-->
+        </div>
+
+        <script type ="text/javascript" >
+            var userName = "servWebElite";
+            var passWord = "$s3rvW3bEl1t3%";
+                
+            function authenticateUser(user, password){
+                var auth = user + ":" + password;    
+                var hash = btoa(auth); 
+                return "Basic " + hash;
+            };
+
+            // Todos los datos
+            function CallWebAPI(){    
+
+                var request = new XMLHttpRequest();
+                var autenticate = authenticateUser(userName, passWord);
+                    
+                request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+                request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+                request.send();   
+                console.log("Loaded data");    
+                respuesta=JSON.parse(request.response);       
+
+                salida = respuesta.message.data;
+                    
+                $("#Tabla").append('<thead><tr><th> PLACA</th><th>TEMPERATURA</th><th>HORA</th><th>LUGAR</th><th>UBICACION</th><th id =ciudad1 >CIUDAD</th><th>EVENTO</th><th>ESTADO</th></tr></thead>')
+                for (let index = 0; index < salida.length; index++) {
+                    $("#Tabla").append("<tr id= 'linea'><td>"
+                        +salida[index].PLACA+"</td><td>"
+                        +salida[index].TEMPERATURA+" ℃ "+"</td><td>"
+                        +salida[index].TIEMPO+"</td><td>"
+                        +salida[index].LUGAR+"</td><td id='row' onclick= 'zoomMap()'>"
+                        +salida[index].UBICACION+"<a aria-label = 'ubicacion' name= 'enlace maps' href=  https://maps.google.com/?q="
+                        +salida[index].LATITUD+","+salida[index].LONGITUD+"><i class='bi bi-geo-alt-fill'></i>"+"</a></td><td>"
+                        +salida[index].CIUDAD+"</td><td>"
+                        +salida[index].EVENTO+"</td><td>"
+                        +"<input aria-label ='activo' type='checkbox' id='Activo "+salida[index].NOMBRE+"' onclick= 'if(this.checked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id); cookie1()' name="+salida[index].NOMBRE+" value="+salida[index].NOMBRE+">"+"<label id = 'Act'>&nbspNo en Ruta </label>"+"</td>"
+                    +"</tr>"
+                        // +"<tr><td colspan = '8'><p id = 'map'></p></td></tr>"
+                    );   
+                };
+
+                for (var i = 0; i < localStorage.length; i++){
+                    var key = localStorage.key(i);
+                    document.getElementById(key).checked = 1;
+                };
+            };
+
+            // function changeText(){
+            //     document.getElementById('Act').innerHTML ='&nbsp'+'&nbsp'+'En ruta';
+            // }
+
+            function mapView(){
+                // document.getElementById("map").style.display = "block";
+
+                let mapOptions = {
+                    center:[4.6989, -74.1478],
+                    zoom: 10
+                }
+
+                let map = new L.map('map', mapOptions);
+
+                let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                map.addLayer(layer);
+
+                for (let index = 0; index < salida.length; index++) {
+                    let marker3 = L.marker([(salida[0].LATITUD), (salida[0].LONGITUD)]).addTo(map)
+                
+                    var location = [salida[0].LATITUD, salida[0].LONGITUD];
+                    var marker = L.marker(location)
+                    marker.bindPopup('<p class =textMap>Placa: '+salida[0].PLACA+'</p><p class =textMap>Latitud: '+salida[0].LATITUD+'</p><p class =textMap>Longitud: '+salida[0].LONGITUD+'</p>');
+                    marker.addTo(map);
+                }
+            };  
+            
+            function zoomMap(){
+                for (let index = 0; index < salida.length; index++) {
+
+                let latitud = salida[index].LATITUD
+                let longitud = salida[index].LONGITUD
+                }
+
+                let mapOptions = {
+                    center:[latitud, longitud],
+                    zoom: 10
+                }
+
+                let map = new L.map('map', mapOptions);
+
+                let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                map.addLayer(layer);
+
+                for (let index = 0; index < salida.length; index++) {
+                    let marker3 = L.marker([(salida[0].LATITUD), (salida[0].LONGITUD)]).addTo(map)
+                
+                    var location = [salida[0].LATITUD, salida[0].LONGITUD];
+                    var marker = L.marker(location)
+                    marker.bindPopup('<p class =textMap>Placa: '+salida[0].PLACA+'</p><p class =textMap>Latitud: '+salida[0].LATITUD+'</p><p class =textMap>Longitud: '+salida[0].LONGITUD+'</p>');
+                    marker.addTo(map);
+                }
+                console.log(latitud , longitud)
+            }
+            // if(document.getElementById("map").style.display ="block"){
+            //         alert("Mostrano mapa")
+            // }
+            
+            // Save cookies Active / Inactive 
+            // Save cookie from Active elements
+            let activos
+
+            function cookie1(){
+                activos = $('input[name="JUK232"]:checked').val() || $('input[name="SRN020"]:checked').val() || $('input[name="JUY725"]:checked').val() || $('input[name="JUZ234"]:checked').val()
+                || $('input[name="SMI928"]:checked').val()    || $('input[name="JUY806"]:checked').val()   || $('input[name="SMI929"]:checked').val() || $('input[name="USD632"]:checked').val()
+                || $('input[name="SJQ225"]:checked').val()    || $('input[name="A7U713797"]:checked').val()|| $('input[name="SWK469"]:checked').val() || $('input[name="SIQ509"]:checked').val()
+                || $('input[name="JTY281"]:checked').val()    || $('input[name="SYR983"]:checked').val()   || $('input[name="GUU153"]:checked').val() || $('input[name="SON350"]:checked').val()
+                || $('input[name="AZNB12855"]:checked').val() || $('input[name="SPO203"]:checked').val()   || $('input[name="JUZ236"]:checked').val() || $('input[name="SZP478"]:checked').val()
+                || $('input[name="JUY658"]:checked').val()    || $('input[name="SMI927"]:checked').val()   || $('input[name="JUY830"]:checked').val() || $('input[name="UPP524"]:checked').val()
+                || $('input[name="SMI930"]:checked').val()    || $('input[name="WFH450"]:checked').val()   || $('input[name="SOC020"]:checked').val() || $('input[name="TLZ068"]:checked').val()
+
+                document.cookie =""+(activos)+" = ACTIVO;  expires = 30 DEC 2023 11:59:59 UTC; Samesite = None; Secure";
+            };
+
+            // Save cookie from Inactive elements
+            // function cookie2(){
+
+            //     let inactivos = $('input[name="JUK232"]:checked').val() || $('input[name="SRN020"]:checked').val() || $('input[name="AJUY725"]:checked').val() || $('input[name="JUZ234"]:checked').val()
+            //     || $('input[name="SMI928"]:checked').val()    || $('input[name="JUY806"]:checked').val()    || $('input[name="SMI929"]:checked').val() || $('input[name="USD632"]:checked').val()
+            //     || $('input[name="SJQ225"]:checked').val()    || $('input[name="A7U713797"]:checked').val() || $('input[name="SWK469"]:checked').val() || $('input[name="SIQ509"]:checked').val()
+            //     || $('input[name="JTY281"]:checked').val()    || $('input[name="SYR983"]:checked').val()    || $('input[name="GUU153"]:checked').val() || $('input[name="SON350"]:checked').val()
+            //     || $('input[name="AZNB12855"]:checked').val() || $('input[name="SPO203"]:checked').val()    || $('input[name="JUZ236"]:checked').val() || $('input[name="SZP478"]:checked').val()
+            //     || $('input[name="JUY658"]:checked').val()    || $('input[name="SMI927"]:checked').val()    || $('input[name="JUY830"]:checked').val() || $('input[name="UPP524"]:checked').val()
+            //     || $('input[name="SMI930"]:checked').val()    || $('input[name="WFH450"]:checked').val()    || $('input[name="SOC020"]:checked').val() || $('input[name="TLZ068"]:checked').val()
+                
+            //     document.cookie =""+(inactivos)+" = DESACTIVO;  expires = 30 DEC 2023 11:59:59 UTC; Samesite = None; Secure";
+            // };
+
+            // Data filter by plate
+            function filtro(){
+                let valor = document.getElementById("searchInput").value.toUpperCase();
+                let nombres = document.getElementById("datos");
+                let filas = nombres.getElementsByTagName("tr");
+
+                for(let i = 0; i < filas.length; i++){
+                    let columna = filas[i].getElementsByTagName("td")[0];
+                    let dato = columna.textContent;
+                    
+                    filas[i].style.display = dato.toUpperCase().indexOf(valor) > -1 ? "" : "none";
+                };
+            };
+
+            document.getElementById("searchInput").addEventListener("keyup", filtro);
+
+        </script>
+
+        <!-- Pie de pagina -->
+        <footer class="footer">
+            2022 © Copyright Coltrack SAS. Todos los derechos reservados.
+        </footer>
+    </div>
+</body>
+</html>
+</body>
+</html>
