@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="popUp.css">
+    <link href="popup.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <title>Document</title>
+</head>
+<body>
+    <table style="border: 1px solid black; width: 150px; height: 50px; text-align: center;">
+        <tr>
+            <td><a href="#popup1">Pop up</a></td>
+        </tr>
+    </table>
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<p id="map"></p>
+		<a class="close" href="#">&times;</a>
+	</div>
+</div>
+
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  background-size: cover;
+  height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #06D85F;
+  margin: 80px 0;
+}
+
+.box {
+  width: 40%;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.2);
+  padding: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+}
+
+.button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid red;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.button:hover {
+
+  background: red;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 380px;
+  height: 350px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup .close:hover {
+  color: red;
+}
+
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+#map{
+  width: 360px;
+  height: 340px;
+  margin: 0;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+
+  .popup{
+    width: 350px;
+  }
+
+  #map{
+    width: 340px;
+    height: 340px;
+    margin: 0;
+    border: 1px solid black;
+}
+}
+
+</style>
+<script>
+    let mapOptions = {
+        center:[4.61664, -74.06782],
+        zoom: 15
+    }
+        
+    let map = new L.map('map' , mapOptions);
+        
+    let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        
+    map.addLayer(layer);
+        
+    let marker = L.marker([4.61664, -74.06782]).addTo(map)
+</script>
+</body>
+</html>

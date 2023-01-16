@@ -33,17 +33,46 @@
 
         salida = respuesta.message.data;   
 
-        $("#Tabla").append('<tr><td><div style="text-align: center">PLACA<div></td><td><div style="text-align: center">CIUDAD<div></td><td><div style="text-align: center">TEMPERATURA<div></td></tr>');
+        $("#Tabla").append('<tr><td><div style="text-align: center">PLACA<div></td><td><div style="text-align: center">HORA<div></td><td><div style="text-align: center">TEMPERATURA<div></td><td><div style="text-align: center">ESTADO<div></td></tr>');
         for (let index = 0; index < salida.length; index++) {
-            $("#Tabla").append("<tr>"
-                +"<td onclick= 'mapView()' style ='cursor:pointer'><div style='text-align: center'>dato1</div></td>"
+            $("#Tabla").append("<tr onclick='show()'>"
+                +"<td><div style='text-align: center'>dato1</div></td>"
                 +"<td><div style='text-align: center'>dato2</div></td>"
                 +"<td><div style='text-align: center'>dato3</div></td>"
+                +"<td><div style='text-align: center'>dato3</div></td>"
                 +"</tr>"
-                +"<tr><td colspan ='3'><p id ='map'></p></td>"
+               
+               +"<tr id='row1' style='display:none'>"
+                    +"<td ><div style='text-align: center'>UBICACION<div></td>"
+                    +"<td><div style='text-align: center'>CIUDAD<div></td>"
+                    +"<td><div style='text-align: center'>LUGAR<div></td>"
+                    +"<td><div style='text-align: center'>EVENTO<div></td>"
+                +"</tr>"
+
+                +"<tr id='row2' style='display:none'>"
+                    +"<td><div style='text-align: center'>dato5</div></td>"
+                    +"<td><div style='text-align: center'>dato6</div></td>"
+                    +"<td><div style='text-align: center'>dato7</div></td>"
+                    +"<td><div style='text-align: center'>dato8</div></td>"
+                +"</tr>"
             );        
         };
     };
+
+    function show(){
+        document.getElementById('row1').style.display="block"
+
+        document.getElementById('row2').style.display="block"
+    }
+
+
+        $(window).resize(function() {
+        if ($(window).width() <= 400) {
+            alert('< 400');
+        }else {
+            alert('> 400');
+        }
+        });
 
     function mapView(){
         // document.getElementById("Tabla1").style.height ="400px"
@@ -109,6 +138,10 @@
             width: 900px;
             height: 30px;
         }
+
+        #row1, #row2{
+            display: none;
+        }
     
         #map{
             width: 100%;
@@ -128,6 +161,12 @@
         
         #ola{
             display:none;
+        }
+
+        @media screen and (max-width: 768px){
+            table{
+                width: 380px;
+            }
         }
 
     </style>
