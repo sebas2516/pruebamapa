@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hover-1</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <header class="header">
+      <ul class="menu" data-animation="to-left">
+        <a id="img" class="navbar-brand" href="/index.html">
+            <img src="/img/coltrack-horizontal.png" alt="LogoColtrack" >
+        </a>
+        <li>
+          <a href="#0">
+            <span>Vehículos</span>
+            <span>
+                <i class="bi bi-truck"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#0">
+            <span>Reportes</span>
+            <span>
+                <i class="bi bi-clipboard-check"></i>
+                </span>
+          </a>
+        </li>
+        <li>
+          <a href="#0">
+            <span>Logout</span>
+            <span>
+                <i class="bi bi-box-arrow-right"></i>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </header>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+#img{
+    margin-right: 400px;
+    border: 1px solid white;
+    height: 65px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    
+}
+
+i{
+    color: #22afe6;
+    font-size: 30px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+body {
+    margin: 30px 0;
+    font: 22px sans-serif;
+    background: #9f9d9c;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background: #142137;
+    align-items: center;  
+    font-family: 'Lato', sans-serif;
+    font-size: 25px;
+    height: 80px;
+    margin-top: 0;
+}
+
+.menu li {
+    margin-right: 70px;
+}
+
+.menu a {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.menu a span {
+    transition: transform 0.2s ease-out;
+}
+
+.menu a span:first-child {
+    display: inline-block;
+    padding: 10px;
+}
+
+.menu a span:last-child {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-100%);
+}
+
+.menu a:hover span:first-child {
+  transform: translateY(100%);
+}
+
+.menu a:hover span:last-child,
+.menu[data-animation] a:hover span:last-child {
+    transform: none;
+}
+
+.menu[data-animation="to-left"] a span:last-child {
+    transform: translateX(100%);
+}
+
+.menu[data-animation="to-left"] a:hover span:first-child {
+    transform: translateX(-100%);
+}
+</style>  
+</body>
+</html>

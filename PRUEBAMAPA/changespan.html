@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="theme-color" content="#317EFB"/>
+
+    <meta charset="UTF-8">
+    <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="login.css">
+    <title>Hola</title>
+    <!-- <script src="holamundo_ext.js"></script> -->
+</head>
+<body>
+
+    <div id="Contenedor">
+        <form id="signup-form">
+            <!-- Email -->
+            <table class="tabla">
+                <tr>
+                    <th colspan="3"><a href="index.html"><img src="img/logo_coltrack.png" class="logo" alt="logo"></a></th>
+                </tr>
+                <tr>
+                    <td class="td1"><i class="bi bi-person-fill"></i></td>
+                    <td colspan="2" class="td2"><input name="nickname" id="email" placeholder ="Usuario"  aria-describedby="sizing-addon1" required></td>
+                </tr>
+                <tr>
+                    <td class="td3"><i class="bi bi-lock-fill"></i></td>
+                    <td class="td4"><input type="password" name="password" id="password" placeholder="******" aria-describedby="sizing-addon1" required></td>
+                    <td class="td5"><span id="view"><i id="view1" class="bi bi-eye-slash-fill"></i></span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button class="btn btn-primary btn-block btn-signin"  id="IngresoLog" type ="submit">Entrar</button></td>
+                </tr>
+            </table>
+            <!-- <div class="input-group input-group-lg">
+                <img class="user" src="/img/login-user.png" alt="" width="25">
+                <input name="nickname" id="email" placeholder ="Usuario"  aria-describedby="sizing-addon1" required>
+            </div>
+            <br>
+            <div class="pass">
+                <img class="lock" src="/img/login-lock.png" alt="">
+                <input type="password" name="password" id="password" placeholder="******" aria-describedby="sizing-addon1" required>
+                <span id="view"><i id="view1" class="bi bi-eye-slash-fill"></i></span>
+            </div>
+            <br>
+            <button class="btn btn-primary btn-block btn-signin"  id="IngresoLog" type ="submit">Entrar</button> -->
+        </form>            
+	</div>		
+
+    </div>
+    <input type="button" value="Hola" id="boton" onclick="cambiarboton(); if(this.clicked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id)" >
+    <script>
+
+        function cambiarboton(){
+            var i=document.getElementById("boton").value = "Mundo";
+        };
+
+        console.log(localStorage);
+    
+        function click(){
+            $(document).on('click', 'input[type="checkbox"]', function(event) {
+                let id = this.value;
+                console.log(id);
+            });
+        };
+    
+        click();    
+
+    </script>
+</body>
+</html>

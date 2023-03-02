@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="uno"></div>
+    <div class="dos"></div>
+    <p id="salida[index].LATITUD"></p>
+    <p id="salida[index].LONGITUD"></p>
+
+
+    <input type="button" name="1" value="e" id="idn1">
+    <input type="button" name="2" value="e" id="idn2">
+    <input type="button" name="3" value="e" id="idn3">
+    <input type="button" name="4" value="e" id="idn4">
+
+
+    <p id="l73" class="click">Textos Uno </p>
+    <p id="l74" class="click">Textos Dos</p>
+    <p id="l75" class="click">Textos Tres</p>
+    <p id="l76" class="click">Textos Cuatro</p>
+    <h1 id="ojo">0123</h1>
+
+    <span>hola</span>
+
+
+    <a href="#" id="eliminarMetros" value="4.1252128" class="btn btn-danger btn-icon" type="button" ><i class="icon-trash"></i>HOLA</a>
+
+<script>
+$(document).on('click', '#eliminarMetros', function () {
+                let metros = [$(this).attr('value')]
+                let concat = metros.concat()
+                console.log(concat);
+})
+
+var sports = ['soccer', 'baseball'];
+var total = sports.push('football', 'swimming');
+
+console.log(sports); // ['soccer', 'baseball', 'football', 'swimming']
+console.log(total)
+
+</script>
+
+    <style>
+        /* p{
+            cursor: pointer;
+            background: red;
+        } */
+
+        span::after{
+            content: " hola";
+        }
+
+        a{
+            font-size: 30px;
+            margin-left: 500px;
+        }
+        #p::before{
+            content: "hola";
+            background: red;
+            font-size: 40px;
+            color: blue;
+        }
+    </style>
+
+    <!-- <script>
+        
+            $(document).on('click', 'input[type="button"]', function(event) {
+                let id = this.id;
+                let name = this.name;
+                console.log("Se presionó el Boton con Id :"+ id)
+                console.log("nombre", name)
+            });
+
+        console.log(id);
+
+        document.querySelectorAll(".click").forEach(el => {
+            el.addEventListener("click", e => {
+                const id = e.target.getAttribute("id");
+                console.log("Se ha clickeado el id "+id);
+            });
+        });
+    </script> -->
+    
+</body>
+</html>

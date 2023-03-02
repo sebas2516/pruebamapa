@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <link rel="icon" type="image/jpg" href="/img/favicon.ico"/>
+        <title>Document</title>
+    </head>
+    <body>
+        <table id="Prueba">
+        
+        </table>
+        <script type="text/javascript">
+            var userName = "wsuser";
+            var passWord = "xe0kVX";
+
+            function tabla(){
+            var now = new Date();
+            console.log(now)
+            var seconds = (now.getSeconds()+2)
+            var dateStringWithTime = moment(now).format('YYYY-MM-DD HH:mm:'+seconds+'');
+                // console.log(dateStringWithTime)
+
+                $("#Prueba").append('<thead><tr><th>PLACA</th><th>TEMPERATURA</th><th>UBICACIÓN</th><th>HORA</th><th>ESTADO</th></tr></thead>');
+                $("#Prueba").append("<tr>"
+                    +"<td>JUK232</td>"
+                    +"<td>8.6875 ℃</td>"
+                    +"<td>A 1495 m. de Sos Km0 Facatativá Madrid</td>"
+                    +"<td>"+dateStringWithTime+"</td>"
+
+                    // Envio de datos EliteFlower
+                    // +"<td><label class='switch'><input type='checkbox' id='Activo "+salida[index].NOMBRE+"' onclick='if(this.checked) localStorage.setItem(this.id,this.name); else localStorage.removeItem (this.id);  if (this.checked){var value1 = this.value = 145} else {var value2 = this.value = 146};' name='"+salida[index].GPSUNITID+"'><div class='slider round'></div></label></td></tr>"
+                    +"<td><label class='switch'><input type='checkbox' id='Activo JUK232' onclick='if(this.checked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id);  if (this.checked){var value1 = this.value = 145} else {var value2 = this.value = 146};' name='543212345'><div class='slider round'></div></label></td></tr>"
+                    // +"<tr>"
+                    // +"<td>SRN020</td>"
+                    // +"<td>8.6875 ℃</td>"
+                    // +"<td>A 1495 m. de Sos Km0 Facatativá Madrid</td>"
+                    // +"<td>"+dateStringWithTime+"</td>"
+                    // +"<td><label class='switch'><input type='checkbox' id='Activo SRN020' onclick='if(this.checked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id);  if (this.checked){var value1 = this.value = 145} else {var value2 = this.value = 146};' name='7654321234567'><div class='slider round'></div></label></td></tr>"
+                    // +"</tr>"
+                );   
+            };
+
+            tabla();
+
+            function authenticateUser(user, password){
+                var auth = user + ":" + password;    
+                var hash = btoa(auth); 
+                return "Basic " + hash;
+            };
+
+            // Evento de Click 
+            function CallWebAPI() {  
+                $(document).on('click', 'input[type="checkbox"]', function(event) {
+                    var evento = this.value;
+                    var esn = this.name;
+
+                    console.log(evento, name)
+    
+                    var now = new Date();
+                    var seconds = (now.getSeconds()+2)
+                    var dateStringWithTime = moment(now).format('YYYY-MM-DD HH:mm:'+seconds+'');
+
+                    var request = new XMLHttpRequest();
+                    var autenticate = authenticateUser(userName, passWord);
+                    // var data = "["+esn+"|"+dateStringWithTime+"|"+dateStringWithTime+"|"+salida[index].LATITUD+"|"salida[index].LONGITUD"|100|180|60|11|0|0|0|0|0|"+evento+"|0|25459220|14523|2500|6|225|80|24870|12875|3874|13100|960|22548000|90|21500|15|16]";
+                    var data = "["+esn+"|"+dateStringWithTime+"|"+dateStringWithTime+"|4.44448|-74.44449|100|180|60|11|0|0|0|0|0|"+evento+"|0|25459220|14523|2500|6|225|80|24870|12875|3874|13100|960|22548000|90|21500|15|16]";
+
+                    var dataURL = encodeURIComponent( data);
+
+                    // console.log(dataURL);
+                    request.open("post", "https://gps.coltrack.com/gps/rep?ver=1&data="+dataURL, false);	
+                    request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+                    request.send();   
+                    // console.log(request.responseText);   	
+                });
+            };
+
+            CallWebAPI();
+
+            function temporizador() {
+                setInterval("location.reload()",240000);
+            };
+
+            temporizador();
+
+        </script>
+
+        <style>
+
+        th, td{
+            border: 1px solid black;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            margin: 3px 0px 0px 0px;
+        }
+            
+        .switch input {
+            display:none;
+        }
+            
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 2px;
+            background-color: #e03939;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border: 1px solid #fff;
+        }
+            
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 2px;
+            bottom: 2px;
+            right: 22px;
+            top: 13;
+            background-color: #fff;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+            
+        input:checked + .slider {
+            background-color: #22afe6;
+            border: 1px solid #fff;
+        }
+            
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+            
+        .slider.round {
+            border-radius: 34px;
+        }
+            
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: .5rem;
+        }
+        </style>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post por Ajax con XMLHttpRequest</title>
+</head>
+<body>
+  <h2>Enviar datos de una empresa</h2>
+  <form action="recibir.php" id="formulario">
+    <p>
+      Empresa:
+      <br>
+      <input type="text" name="empresa" id="empresa">
+    </p>
+    <p>
+      CIF:
+      <br>
+      <input type="text" name="cif" id="cif">
+    </p>
+    <p>
+      Dirección:
+      <br>
+      <input type="text" name="direccion" id="direccion">
+    </p>
+    <p>
+      <input type="submit" value="Enviar">
+    </p>
+  </form>
+
+  <div id="respuesta"></div>
+
+  <script>
+    let form = document.getElementById('formulario');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", form.action);
+        xhr.send(new FormData(form));
+        xhr.onload = function (e) {
+            document.getElementById('respuesta').innerHTML = xhr.responseText;
+        }
+    });
+  </script>
+</body>
+</html>
+

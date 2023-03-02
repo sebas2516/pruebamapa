@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta name="theme-color" content="#4285f4"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Seguimiento de vehiculos ">
+        <!-- <script src ="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+        <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+        <link rel="icon" type="image/jpg" href="/img/favicon.ico"/>
+        <link rel="stylesheet" href="leaflet-search.css" />
+        <link rel="stylesheet" href="search.css">
+        <title> Vehiculos </title>
+    </head>
+    <body id ="body" onload="CallWebAPI()">
+    <header class="header">
+        <div class="main-menu-logo bg-none " id="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="/index.html">
+                        <img src="/img/coltrack-horizontal.png" alt="LogoColtrack" >
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a id ="vehiculos" class="nav-link" href="/vehiculos.html"><span>Vehículos</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a id ="reportes" class="nav-link" href="/iframe.html"><span>Reportes</span></a>
+                            </li>
+
+                            <li class="nav-item active"> 
+                                <a id ="logout" class="nav-link" href="/login.html"><span>Logout</span></a>
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="All">
+        <div class="separador">
+            <div class="Elite">
+                <p><img src="https://mlanvprljx6f.i.optimole.com/cb:nPcu.35a45/w:150/h:51/q:mauto/rt:fill/g:ce/https://eliteflower.com/wp-content/uploads/2022/10/Logo-The-Elite-Flower-Horizontal-1-1-1.svg" class="logoElite" alt=""></p>
+            </div>
+       </div>
+
+        <!-- DATOS -->
+        <div class ="datos">
+            <!-- Filtro de datos -->
+            <div class ="filtro">
+                <input type ="text" id ="searchInput" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder = "Filtrar por placa" />
+				<a class="viewMap" href='#popup1'>Mostrar Mapa <i style="color: #fff;" class="bi bi-map-fill"></i></a>
+            </div>
+
+            <!--dataTable-->
+            <div class ="dataTable">
+                <table id ="Tabla">
+                    <tbody id  ="datos">
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- PopUp Dispositivos Moviles -->
+			<div id="popup1" class="overlay">
+                <div class="popup" id="pop">
+                    <div id="findbox"></div>
+        			<div id="map"></div>
+                    <a class="close" href="#">&times;</a>
+                </div>
+            </div>
+		</div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <small> © Copyright Coltrack SAS. Todos los derechos reservados. </small>
+        </footer>
+	</div>
+
+    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+    <script src="leaflet-search.js"></script>
+
+	<script src="search.js"></script>
+    <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"crossorigin="anonymous">
+
+	<!-- JS, Popper.js, jquery and jQuery autocomplete -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"crossorigin="anonymous"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"crossorigin="anonymous"></script> -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/sass.css">
+<script src="/sass.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-collapse">
+						<thead>
+							<tr>
+								<th>Fund name</th>
+								<th>Code</th>
+								<th>Series</th>
+								<th>Asset class</th>
+								<th>Risk</th>
+								<th>MER</th>
+							</tr>
+						</thead>
+						<tbody id="handlebarsFundTable"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script id="fundTableTemplate" type="text/x-handlebars-template">
+		{{#each funds}}
+			<tr class="collapse-control collapsed" data-toggle="collapse" data-target="#collaspe{{code}}" aria-expanded="false">
+				<td><a href="#">{{name}}</a></td>
+				<td>{{code}}</td>
+				<td>{{series}}</td>
+				<td>{{assetClass}}</td>
+				<td>{{risk}}</td>
+				<td>{{mer}}</td>
+			</tr>
+			<tr>
+				<td colspan="6" class="collapse-td">
+					<div class="collapse-content collapse" id="collaspe{{code}}">
+						<span class="header-6">Investment objective</span>
+						<p>{{objective}}</p>
+					</div>
+				</td>
+			</tr>
+		{{/each}}
+
+	</script>
+	<script>
+		
+		console.clear();
+
+const fundData = {
+	funds: [
+		{
+			name: 'PH&N Canadian Money Market Fund',
+			code: '1234',
+			series: 'F',
+			assetClass: 'Money Market Funds',
+			risk: 'low',
+			mer: 0.12,
+			objective: 'He said that I was going to get to rob the bank for real. I think like a girl, I think. Not to discriminate against budgets, I feel that independent films tend to ask more questions and don\'t pretend to know as much as the bigger films, which tend to think they know everything. I\'m not a good enough actor to become a character. Then, telling Derek Cianfrance that I\'d ever I could rob a bank I\'d do it on my motorcycle, and he said \'That\'s weird, I just wrote a script about that\'.'
+		}, {
+			name: 'PH&N Bond Fund',
+			code: '8901',
+			series: 'F',
+			assetClass: 'Fixed Income Funds',
+			risk: 'low',
+			mer: 0.34,
+			objective: 'It\'s nice to be around people that have a sense of the world around them, that are, in general, more conscious and conscientious. I went through puberty in a theme park. Anything happens a minute either side of that, and you\'re on your own. I think the one thing I love most about being an adult is the right to buy candy whenever and wherever I want. I won\'t eat my cereal.'
+		}, {
+			name: 'PH&N Balanced Fund',
+			code: '567',
+			series: 'F',
+			assetClass: 'Balanced Funds and Portfolio Solutions',
+			risk: 'low to meduim',
+			mer: 0.56,
+			objective: 'I don\'t carry a gun. Change moves in spirals, not circles. Hey girl, I brought home a few bottles of wine since I know you needed more corks for that pinterest project. We\'re always changing. I could be whatever you want.'
+		}
+	]
+};
+
+var fundTableTemplateSource = document.getElementById('fundTableTemplate').innerHTML;
+var fundTableTemplate = Handlebars.compile(fundTableTemplateSource);
+document.getElementById('handlebarsFundTable').innerHTML = fundTableTemplate(fundData);
+	</script>
+</body>
+
+</html>

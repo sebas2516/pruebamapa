@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+    <title>example</title>
+</head>
+<body>
+    <div id="reloj" >
+
+    <div id="respuesta">respuesta aca</div>
+    <script>
+        var request = new XMLHttpRequest();
+        request.open('GET', 'ajax.php', true);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4){
+                if(request.status == 200){
+                    document.querySelector('#respuesta').innerHTML = request.responseText;
+                }
+            } else {
+                document.querySelector('#respuesta').innerHTML = 'espere...';
+            }
+        }
+
+        request.send();
+
+        function muestraReloj() {
+            var fechaHora = new Date();
+            var horas = fechaHora.getHours();
+            var minutos = fechaHora.getMinutes();
+            var segundos = fechaHora.getSeconds();
+
+            if(horas < 10) { horas = '0' + horas; }
+            if(minutos < 10) { minutos = '0' + minutos; }
+            if(segundos < 10) { segundos = '0' + segundos; }
+
+            document.getElementById("reloj").innerHTML = horas+':'+minutos+':'+segundos;
+        }
+
+        window.onload = function() {
+            setInterval(muestraReloj, 1000);
+        }
+
+        function contador() {
+            var fecha = new Date();
+            var sumarsesion = 5;
+            var minutes = fecha.getMinutes();
+
+            fecha.setMinutes(minutes + sumarsesion);
+            console.log( minutes + ":" + fecha.getMinutes())
+        }
+
+        contador();
+
+        var now = new Date();
+        var seconds = (now.getSeconds()+1)
+        var dateStringWithTime = moment(now).format('YYYY-MM-DD HH:mm:'+seconds+'');
+        console.log(now)
+        console.log(dateStringWithTime)
+        // console.log(now.getSeconds()+1)
+    </script>
+</body>
+</html>

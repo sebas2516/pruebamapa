@@ -28,15 +28,15 @@
     </tr>
 </table>
 <style>
-  td{
-    border: 1px solid black;
-  }
+    td{
+        border: 1px solid black;
+    }
 </style>
 <script>
-  $(document).ready(function(){
-    $(".toggler").click(function(e){
-        e.preventDefault();
-        $('.cat'+$(this).attr('data-prod-cat')).toggle();
+    $(document).ready(function(){
+        $(".toggler").click(function(e){
+            e.preventDefault();
+            $('.cat'+$(this).attr('data-prod-cat')).toggle();
+        });
     });
-});
 </script>

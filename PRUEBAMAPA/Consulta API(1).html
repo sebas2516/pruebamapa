@@ -1,68 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
     <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <title>Document</title>
+    <title>Document</title>
 </head>
 <body id ="body" onload="CallWebAPI()">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" >
-var userName = "servWebElite";
-var passWord = "$s3rvW3bEl1t3%";
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var userName = "servWebElite";
+        var passWord = "$s3rvW3bEl1t3%";
 
-function authenticateUser(user, password){
-    var auth = user + ":" + password;    
-    var hash = btoa(auth); 
-    return "Basic " + hash;
-}
+        function authenticateUser(user, password){
+            var auth = user + ":" + password;    
+            var hash = btoa(auth); 
+            return "Basic " + hash;
+        }
 
-function CallWebAPI() {    
-  var request = new XMLHttpRequest();
-    var autenticate = authenticateUser(userName, passWord);
+        function CallWebAPI() {    
+            var request = new XMLHttpRequest();
+            var autenticate = authenticateUser(userName, passWord);
 
-    request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
-    request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
-    request.send();   
-	respuesta=JSON.parse(request.response);       
-  $("#Tabla").append('<tr><td><div style="text-align: center">PLACA<div></td><td><div style="text-align: center">CIUDAD<div></td><td><div style="text-align: center">TEMPERATURA<div></td></tr>');
-  for (let index = 0; index < salida.length; index++) {
-    $("#Tabla").append("<tr>"
-      +"<td><div style='text-align: center'>dato1</div></td>"
-      +"<td style ='cursor:pointer'><div style='text-align: center'>dato2</div></td>"
-      +"<td><div style='text-align: center'>dato3<div></td>"
-    +"</tr>"+"<tr><td id ='map' colspan ='3'></td>");        
-  }  
-}
-// function mapView(){
-//     document.getElementById('hide').style.display="block"
-// }
+            request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+            request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+            request.send();   
+            respuesta=JSON.parse(request.response);       
+            $("#Tabla").append('<tr><td><div style="text-align: center">PLACA<div></td><td><div style="text-align: center">CIUDAD<div></td><td><div style="text-align: center">TEMPERATURA<div></td></tr>');
+            for (let index = 0; index < salida.length; index++) {
+            $("#Tabla").append("<tr>"
+                +"<td><div style='text-align: center'>dato1</div></td>"
+                +"<td style ='cursor:pointer'><div style='text-align: center'>dato2</div></td>"
+                +"<td><div style='text-align: center'>dato3<div></td>"
+            +"</tr>"+"<tr><td id ='map' colspan ='3'></td>");        
+            }  
+        }
 
-</script>
+        // function mapView(){
+        //     document.getElementById('hide').style.display="block"
+        // }
+    </script>
 
-<table id="Tabla"></table>
+    <table id="Tabla"></table>
 
-<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-<script src="JS/map.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <script src="JS/map.js"></script>
 
-<style>
-    #Tabla{
-        width: 900px;
-    }
+    <style>
+        #Tabla{
+            width: 900px;
+        }
 
-    td{
-        border: 1px solid black;
-        width: 300px;
-    }
+        td{
+            border: 1px solid black;
+            width: 300px;
+        }
 
-    #map{
-        width: 300;
-        height: 400px;
-        margin:0;  
-    }
-</style>
+        #map{
+            width: 300;
+            height: 400px;
+            margin:0;  
+        }
+    </style>
 </body>
 </html>

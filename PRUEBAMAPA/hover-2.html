@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hover-2</title>
+</head>
+<body>
+    
+<!-- <div class="wrapper"> -->
+        <span>
+            <a href="#">VEHICULOS</a>
+        </span>
+        <span>
+            <a href="#">REPORTES</a>
+        </span>
+        <br>
+        
+        <br>
+
+        <br>
+    <span class="square">
+        <a class="tenth before after" href="#">Log-Out</a>
+    </span>
+<!-- </div> -->
+
+<div class="swtich-container">
+    <input type="checkbox" id="switch">
+    <label for="switch" class="lbl">
+        <span class="on">ON</span>
+        <span class="off">OFF</span>
+    </label>
+   </div>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+    .wrapper{
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    a{
+        color: black;
+        text-decoration: none;
+    }
+
+    a:hover{
+        color:#fac103;
+    }
+
+    a.before:before,a.after:after{
+        content: "";
+        transition:0.5s all ease;
+        -webkit-backface-visibility:hidden;
+                backface-visibility:hidden;
+        position:absolute;
+    }
+
+    a.before:before{
+        top:-0.25em;
+    }
+
+    a.after:after{
+        bottom:-0.25em;
+    }
+
+    a.before:before,a.after:after{
+        height:5px;
+        height:0.35rem;
+        width:0;
+        background:#fac103;
+    }
+
+    .square{
+        box-sizing:border-box;
+        margin-left:-0.4em;
+        position:relative;
+        font-size:2.5em;
+        overflow:hidden;
+    }
+
+    .square a{
+        position:static;
+        font-size:100%;
+        padding:0.2em 0.4em;
+    }
+
+    .square:before,.square:after{
+        content: "";
+        box-sizing:border-box;
+        transition:0.25s all ease;
+        -webkit-backface-visibility:hidden;
+        backface-visibility:hidden;
+        position:absolute;
+        width:5px;
+        width:0.35rem;
+        height:0;
+        background:#fac103;
+    }
+
+    .square:before{
+        left:0;
+        bottom:-0.2em;
+    }
+
+    .square:after{
+        right:0;
+        top:-0.2em;
+    }
+
+    .square a:before{
+        left:0;
+        transition:0.25s all ease;
+    }
+
+    .square a:after{
+        right:0;
+        transition:0.25s all ease;
+    }
+
+    .square:hover:before,.square:hover:after{
+        height:calc(100% + 0.4em);
+    }
+
+    .square:hover a:before,.square:hover a:after{
+        width:100%;
+    }
+
+    /* ------------------------------------------------ */
+
+    .lbl{      
+        display: inline-block;
+        width: 65px;
+        height: 33px;
+        background: #979797;
+        border-radius: 100px;
+        cursor: pointer;
+        position: relative;
+        transition: .2s;
+        border-radius:20px;
+        border:3px solid #142137; /* Bordeado fuera del switch */
+    }  
+
+    .lbl::after {
+        content: '';
+        display: block;
+        width: 25px;
+        height: 25px;
+        background: #142137;
+        border-radius: 100px;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        transition: .2s;
+    }
+
+    #switch:checked + .lbl::after {       
+        left: 36px;
+    }
+
+    #switch:checked + .lbl {       
+        background: #22afe6;
+        border-radius:20px;
+        border:3px solid #142137; 
+    }
+
+    #switch {
+        display: none;
+    }
+
+    .on, .off {
+        color: white; /* Color ON-OFF */
+        position: absolute; /* Posicion */
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 25%;
+        font-size: 11px; /* Tamaño de letra */
+        font-family: Verdana, sans-serif; /* Fuente de letra */
+    }
+
+    .on {
+        top: 15px; 
+    }
+    
+    .off {
+        left: auto;
+        right: -3px;
+        top: 15px;
+    }
+
+</style>
+</body>
+</html>

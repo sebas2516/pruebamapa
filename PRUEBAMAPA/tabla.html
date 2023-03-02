@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body id ="body" onload="CallWebAPI()">
+        <script type ="text/javascript" >
+            var userName = "servWebElite";
+            var passWord = "$s3rvW3bEl1t3%";
+                  
+            function authenticateUser(user, password){
+                var auth = user + ":" + password;    
+                var hash = btoa(auth); 
+                return "Basic " + hash;
+            };
+  
+            // Todos los datos
+            function CallWebAPI(){    
+  
+                var request = new XMLHttpRequest();
+                var autenticate = authenticateUser(userName, passWord);
+                     
+                request.open("get", "https://gps.coltrack.com/gps/api.jsp", false);	
+                request.setRequestHeader("Authorization", authenticateUser(userName, passWord));  	
+                request.send();   
+                console.log("Loaded data");    
+                respuesta=JSON.parse(request.response);       
+  
+                salida = respuesta.message.data;
+                        
+                $("#Tabla").append('<thead><tr><th scope="col">#</th><th> PLACA</th><th>TEMPERATURA</th><th>UBICACION</th><th>ESTADO</th></tr></thead>');
+                for (let index = 0; index < salida.length; index++) {
+                    $("#Tabla").append("<tr data-bs-toggle='collapse' data-bs-target='#r"+index+"'><td scope='row'>"+index+ "<i class='bi bi-chevron-down'></i></th><td>"
+                        +salida[index].PLACA+"</td><td>"
+                        +salida[index].TEMPERATURA+" ℃ "+"</td><td>"
+                        +salida[index].UBICACION+"<a name= 'enlace maps' href=  https://maps.google.com/?q="
+                        +salida[index].LATITUD+","+salida[index].LONGITUD+"><i class='bi bi-geo-alt-fill'></i>"+"</a></td><td>"
+                        +"<input aria-label ='activo' type='checkbox' id='Activo "+salida[index].NOMBRE+"' onclick= 'if(this.checked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id); cookie1()' name="+salida[index].NOMBRE+" value="+salida[index].NOMBRE+">"+"<label id = 'Act'>&nbspNo en Ruta </label>"+"</td>"
+                        +"</tr>"
+
+                        +"<tr class='collapse accordion-collapse' id='r"+index+"' data-bs-parent='.table' style='background: #142137; color:white'>"
+                            +"<td></td>"+"<td> Hora: "+salida[index].TIEMPO+"</td>"
+                            +"<td> Lugar: "+salida[index].LUGAR+"</td>"
+                            +"<td> Ciudad: "+salida[index].CIUDAD+"</td>"
+                            +"<td> Evento: "+salida[index].EVENTO+"</td>"
+                        +"</tr>"
+                    );   
+                };
+            };  
+        </script>
+           
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table accordion" id="Tabla">
+            </table>
+        </div>
+    </div>
+    <style>
+        table{
+            /* border: 4px solid red; */
+            width: 500px;
+            text-align: center;
+        }
+
+        .container{
+            width: 600px;
+            height: 600px;
+            margin-top: 40px;
+            overflow: auto;
+            border: 5px solid black;
+            padding: 0;
+        }
+
+        thead{
+            background: #142137;
+            color: #ffffff;
+        }
+        
+        td{
+            border: 1px solid black;
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

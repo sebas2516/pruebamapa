@@ -37,7 +37,6 @@ body{
     color: white;
     padding: 0px 20px;
     font-family: 'Raleway', sans-serif;
-
 }
 
 img {
@@ -97,21 +96,33 @@ p{
     grid-row-end: 2;
     margin: 15px 0px 15px 15px; 
 }
-
+.dataTable {
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-color: #142137;
+    scrollbar-width: thin;
+    height: 650px;
+    width: 750px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    padding: 0;
+    margin: 0px 15px;
+    border: 1px solid black;
+    overflow-anchor: auto;
+    border: 4px solid #000;
+  }
 /*Tabla */
 #Tabla{
     font-family: Arial, Helvetica, sans-serif;
-    width: 1000px;
+    width: 800px;
     height: 500px;
     text-align: center;
     border-collapse: collapse; 
-    border: 4px solid #000;
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 2; 
     grid-row-end: 3;
     margin: 20px 0px 15px 10px ;
-    overflow-y: scroll;
     overflow-x: auto;
     overflow-y: auto;
 }
@@ -124,8 +135,6 @@ th {
     padding: 1px;     
     margin-top: 0px;
     background: rgb(20, 33, 55);
-    border-top: 4px solid #000;    
-    border-bottom: 4px solid #000;
     letter-spacing: 1px;
     font-family: 'Poppins', sans-serif;
 }
@@ -215,18 +224,6 @@ label {
     height: 624px;
     /* min-height: 1070px;
     max-height: 1800px; */
-}
-
-#map1{
-    border: 1px solid black;
-    width: 550px;
-    grid-row-start: 2; 
-    grid-row-end: 3;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    margin: 80px 0px;  
-    height: 624px;
-    display: none;
 }
 
 /*Pie de pagina*/
@@ -321,8 +318,6 @@ label {
         width: 395px;
         grid-column-start: 1;
         grid-column-end: -1;
-        margin: 0px 0px 15px 0px;
-        border: 1px solid black;
     }
 
     p{

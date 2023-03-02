@@ -9,36 +9,38 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-    <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="/assets/531cbf94/leaflet-search.js"></script>
+
     <!-- <link rel="stylesheet" href="CSS/right.css"> -->
     <link rel="icon" type="image/jpg" href="/img/favicon.ico"/>
     <title> Prueba2 </title>
     </head>
-
     <body id ="body" onload="CallWebAPI()">
     <header class="header">
-        <!-- <div class="main-menu-logo bg-none " id="header"> -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="main-menu-logo bg-none " id="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a class="navbar-brand" href="#"><img src="/img/coltrack-horizontal.png" alt=""></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand" href="/index.html">
+                        <!-- <img src="/img/coltrack-horizontal.png" alt="LogoColtrack" > -->
+                        <img src="/img/Coltrack modificado-02.png" alt="LogoColtrack" >
+
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ms-auto">
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Vehiculos</a>
+                                <a id="vehiculos" class="nav-link" href="/vehiculos.html">Vehículos</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Reportes</a>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/iframe.html">Reportes</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Logout</a>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/login.html">Logout</span></a>
                             </li>
                         </ul>
                     </div>
@@ -47,31 +49,34 @@
         </div>
     </header>
 
-    <div class="All">
+    <script src ="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="todo">
         <div class="separador">
-            <div class="Elite">
-                <p><img src="https://mlanvprljx6f.i.optimole.com/cb:nPcu.35a45/w:150/h:51/q:mauto/rt:fill/g:ce/https://eliteflower.com/wp-content/uploads/2022/10/Logo-The-Elite-Flower-Horizontal-1-1-1.svg" class="logoElite" alt=""></p>
-            </div>
+            <div class="Elite"><p><img src="https://mlanvprljx6f.i.optimole.com/cb:nPcu.35a45/w:150/h:51/q:mauto/rt:fill/g:ce/https://eliteflower.com/wp-content/uploads/2022/10/Logo-The-Elite-Flower-Horizontal-1-1-1.svg" class="logoElite" alt=""></p></div>
        </div>
 
         <!-- DATOS -->
         <div class ="datos">
             <!-- Filtro de datos -->
             <div class ="filtro">
-                <input type ="text" id ="searchInput" placeholder = "Filtrar por placa" />
+                <input type ="text" id ="searchInput" placeholder ="Filtrar por placa" />
             </div>
 
-            <!--dataTable-->
             <div class ="dataTable">
                 <table id ="Tabla">
                     <tbody id  ="datos">
                     </tbody>
                 </table>
+
+                <p id="text"></p>
+                <p id="text1">1</p>
             </div>
 
-            <!--PopUp-Map-->
             <div id="popup1" class="overlay">
-                <div class="popup" id="pop">
+                <div class="popup">
                     <p id="map"></p>
                     <a class="close" href="#">&times;</a>
                 </div>
@@ -102,76 +107,73 @@
 
                 salida = respuesta.message.data;
                     
-                $("#Tabla").append('<thead><tr><th> PLACA</th><th>TEMPERATURA</th><th>UBICACIÓN</th><th>ESTADO</th></tr></thead>');
-
-                var id;
-                var name;
-
-                    for (let index = 0; index < salida.length; index++) {
-                    $("#Tabla").append("<tr onclick= showHideRow('hidden_row"+index+"')><td><a href='#popup1'>"
-                    +salida[index].PLACA+"</a></td><td>"
-                    +salida[index].TEMPERATURA+" ℃ "+"</td><td>"
-                    +salida[index].UBICACION+"&nbsp; &nbsp; <button id="+salida[index].LATITUD+" name="+salida[index].LONGITUD+" onclick='id = this.id; name = this.name; console.log(id , name)'><i class='bi bi-geo-alt-fill'></i></button>"+"</td><td>"
-                    +"<input class='input' aria-label ='activo' type='checkbox' id='Activo "+salida[index].NOMBRE+"' onclick= 'if(this.checked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id); cookie1();' value="+salida[index].NOMBRE+">"+"<label id = 'label1'> No en ruta </label>"+"</td>"
-                    // +"<td>"+"<input type='button' id ="+salida[index].LATITUD+" name ="+salida[index].LONGITUD+"></td>"
-                    +"</tr>"
-    
-                    +"<tr id='hidden_row"+index+"' class='hidden_row'>"
-                        +"<td id='td2'><span class='text'> Hora: </span> "+salida[index].TIEMPO+"</td>"
-                        +"<td id='td2'><span class='text'> Lugar: </span>"+salida[index].LUGAR+"</td>"
-                        +"<td id='td2'><span class='text'> Ciudad: </span>"+salida[index].CIUDAD+"</td>"
-                        +"<td id='td2'><span class='text'> Evento: </span>"+salida[index].EVENTO+"</td>"
-                    +"</tr>"    
+                $("#Tabla").append('<thead><tr><th scope="col">#</th><th> PLACA</th><th>TEMPERATURA</th><th>UBICACIÓN</th><th>ESTADO</th></tr></thead>');
+                for (let index = 0; index < salida.length; index++) {
+                    $("#Tabla").append("<tr id='row' name="+salida[index].LATITUD+" class="+salida[index].LONGITUD+" data-bs-toggle='collapse' data-bs-target='#r"+index+"'><td scope='row'>"+index+ "<i class='bi bi-chevron-down' style='color:#142137'></i></th><td>"
+                        +salida[index].PLACA+"</td><td>"
+                        +salida[index].TEMPERATURA+" ℃ "+"</td><td id='PE-A'>"
+                        +salida[index].UBICACION+"<a aria-label='Ubicacion Vehiculos' name= 'enlace maps' href=  https://maps.google.com/?q="
+                        +salida[index].LATITUD+","+salida[index].LONGITUD+"><i class='bi bi-geo-alt-fill'></i>"+"</a></td><td>"
+                        +"<input aria-label ='activo' type='checkbox' id='Activo "+salida[index].NOMBRE+"' onclick= 'if(this.checked) localStorage.setItem(this.id,this.value); else localStorage.removeItem (this.id); cookie1()' name="+salida[index].NOMBRE+" value="+salida[index].NOMBRE+">"+"<label id = 'Act'>&nbspNo en Ruta </label>"+"</td>"
+                        // +"<td>"+"<input type='button' id ="+salida[index].LATITUD+" name ="+salida[index].LONGITUD+">"
+                        +"</tr>"
+                        +"<tr class='collapse accordion-collapse' id='r"+index+"' data-bs-parent='.table'>"
+                            +"<td class='td2'></td>"+"<td class='td2'> Hora: "+salida[index].TIEMPO+"</td>"
+                            +"<td class='td2'> Lugar: "+salida[index].LUGAR+"</td>"
+                            +"<td class='td2'> Ciudad: "+salida[index].CIUDAD+"</td>"
+                            +"<td class='td2'> Evento: "+salida[index].EVENTO+"</td>"
+                        +"</tr>"
                     );   
                 };
 
-
-                // Query LocalStorage
                 for (var i = 0; i < localStorage.length; i++){
                     var key = localStorage.key(i);
                     document.getElementById(key).checked = 1;
                 };
-               
 
                 // var uno = document.getElementById("uno");
                 // var uno1 = uno.name;
                 // console.log(uno1)
 
-
                 // var dos = document.getElementById("dos");
                 // var dos2 = dos.name;
                 // console.log(dos2)
 
-
                 // var className = document.getElementById('boton').className;
                 // alert(className);
 
-
                 // for (let index = 0; index < salida.length; index++) {
-
 
                 // var align = document.getElementById('boton');
                 // var className = document.getElementById('boton').className;
                 // var align2 = align.name
                 // }
 
-
                 // for (let index = 0; index < salida.length; index++) {
                 //     var align0 = document.getElementById('boton');
                 //     var align1 = align0.name2
                 // }
                 
-
                 // var className = document.getElementById('boton').className;
                 // var Name = document.getElementById("boton").name;
                 
-
                 // console.log(name);
                 // console.log(className);
 
 
+                function click(){
+                    $(document).on('click', 'input[type="button"]', function(event) {
+                        var id = this.id;
+                        var name = this.name;
+                        // console.log(id + "," + name);
+                        return id;
+                    });
+                };
+
+                
                 // click();
-                // console.log(click());
+                // const hola = click();
+                // console.log(hola);
 
 
                 // for (let index = 0; index < salida.length; index++){
@@ -189,60 +191,12 @@
                 // var nombre = document.getElementById('button-1').name;
                 // console.log("name: " + nombre);
 
-
-                //Añadir coordenadas a un array e imprimir ultima posicion y eliminar la anterior
-
-
-                // let arreglo = ""
-
-                // for (let index = 0; index < salida.length; index++) {
-                //     arreglo =[salida[index].LATITUD, salida[index].LONGITUD]
-                // };
-
-
-                // for (let index = 0; index < arreglo.length; index++) {
-                //     // console.log(arreglo)
-                // };
-
-
-                var id="";
-                var name="";
-
-                function click(){
-                    $(document).on('click', 'input[type="button"]', function(event) {
-                        id = this.id;
-                        name = this.name;
-                        // console.log(id + "," + name);
-                        // return id;
-                        
-                    });
-                };
-
-                var sports ="";
-                // var total = "";
-
-                for (let index = 0; index < salida.length; index++) {
-
-                    sports = [salida[index].LATITUD , salida[index].LONGITUD];
-                    total = sports.push(id, name);
-                    console.log(sports);
-                    // console.log(total);
-                }
-
-
-                for (let index = 0; index < salida.length; index++) {
-                    var Latitud = salida[index].LATITUD;
-                    var Longitud = salida[index].LONGITUD;
-                }
-
-
-                //Map OSM
+              
                 let mapOptions = {
-                    center:[Latitud, Longitud],
+                    center:[ 4.7800211, -74.3157186],
                     zoom: 14
                 };
-
-
+            
                 let map = new L.map('map', mapOptions);
 
                 let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
@@ -253,15 +207,18 @@
                 
                     var location = [salida[index].LATITUD, salida[index].LONGITUD];
                     var marker = L.marker(location)
-                    marker.bindPopup('<p class =textMap><span class=text>Placa:</span> '+salida[index].PLACA+'</p><p class =textMap><span class=text>Temperatura:</span> '+salida[index].TEMPERATURA+'</p><p class =textMap><span class=text>Ubicacion:</span> '+salida[index].UBICACION+'</p>');
+                    marker.bindPopup('<p class =textMap>Placa: '+salida[index].PLACA+'</p><p class =textMap>Temperatura: '+salida[index].TEMPERATURA+'</p><p class =textMap>Ubicacion: '+salida[index].UBICACION+'</p>');
                     marker.addTo(map);
-                };
-            };
-
-            function showHideRow(row) {
-    			$("#" + row).toggle();
-		    };
-
+                }
+            };  
+            
+            // Scroll
+            window.onwheel = e => {
+                if(e.deltaY >= 0){
+                    document.getElementById('header').style.zIndex = '1100'; 
+                } 
+            }
+            
             // Save cookies Active / Inactive 
             // Save cookie from Active elements
             let activos
@@ -299,30 +256,13 @@
                 let filas = nombres.getElementsByTagName("tr")
 
                 for(let i = 0; i < filas.length; i++){
-                    let columna = filas[i].getElementsByTagName("td")[0];
+                    let columna = filas[i].getElementsByTagName("td")[1];
                     let dato = columna.textContent;
                     
                     filas[i].style.display = dato.toUpperCase().indexOf(valor) > -1 ? "" : "none";
                 };
             };
-
             document.getElementById("searchInput").addEventListener("keyup", filtro);
-
-
-            // function filtromap(){
-            //     let valor = document.getElementById("searchInput1").value.toUpperCase();
-            //     let mapa = document.getElementById("pop");
-            //     let texto = mapa.getElementsByTagName("p");
-
-            //     for(let i = 0; i < texto.length; i++){
-            //         let ptext = texto[i].getElementsByTagName("p")[0];
-            //         let pdato = ptext.textContent;
-
-            //         filas[i].style.display = pdato.toUpperCase().indexOf(valor) > -1 ? "" : "none";
-            //     };
-            // };
-            // document.getElementById("searchInput1").addEventListener("keyup", filtromap);
-
         </script>
 
         <!-- Pie de pagina -->
@@ -332,121 +272,95 @@
     </div>
 
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+    /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap'); */
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-    body{
-        background-color: rgb(247, 239, 239);
-        color: black;
-        font-family: Arial, Helvetica, sans-serif;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(240)'%3E%3Cstop offset='0' stop-color='%23ffffff'/%3E%3Cstop offset='1' stop-color='%23FFFFFF'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='540' height='450' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
-        background-attachment: fixed;
-        background-size: cover;
-    }
-    
-    /* header */
-    #header{
-        z-index: 1200;
+
+    .p-text{
+        /* display: none; */
+        color: #000;
+        background: #fff;
     }
 
-    /* .bg-light {
-        background-color: #142137 !important;
-    } */
-    
-    /* icon menu desplegable */
+    #text1{
+        display: none;
+    }
+
+    input[type="button"]{
+        background: #142137;    
+        width: 30px;
+        border:none;
+    }
+
+    input[type="checkbox"]:hover {
+        background: red;
+    }
+
+    input[type="button"]:hover {
+        background: yellow;
+    }
+
+    body{
+        background-color: #142137;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(240)'%3E%3Cstop offset='0' stop-color='%23ffffff'/%3E%3Cstop offset='1' stop-color='%23FFFFFF'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='540' height='450' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+        background-attachment: fixed; */
+        background-size: cover;
+    }
+
     .navbar-light .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255 )' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
-    
-    /*Todo el contenido  */
-    .All{
+
+    .todo{
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(3, auto);
     }
-    
-    /* Logo */
+
     .main-menu-logo{
         position: fixed;
         top:0;
         z-index: 100;
         width: 100%;
-        background: #142137;
+        /* background: #142137; */
+        background: #fff;
+        font-family: 'Raleway', sans-serif;
     }
-    
-    /*Links navbar  */
-    .navbar-light 
-    .navbar-nav 
-    .active > .nav-link, 
-    .navbar-light .navbar-nav .nav-link.active, 
-    .navbar-light .navbar-nav .nav-link.show, 
-    .navbar-light .navbar-nav .show > .nav-link {
-        color: white;
+
+    .navbar-brand{
+        font-size: 30px;
+        font-weight: bold;
+        color: #142137;
+    }
+
+    .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
+        /* color: white; */
+        color: #142137;
+
         padding: 0px 20px;
+        /* font-family: 'Raleway', sans-serif; */
+        /* font-family: 'Montserrat', sans-serif; */
+        /* font-family: 'Lato', sans-serif; */
         font-family: 'Lato', sans-serif;
         font-size: 25px;
     }
 
-    .navbar li {
-        display: inline-block;
-        list-style: outside none none;
-        margin: .5em 1em;
-        padding: 0;
-    }
-
-    .navbar a {
-        padding: .5em .8em;
-        color: #22afe6;
-        position: relative;
-        text-decoration: none;
-        font-size: 20px;
-    }
-
-    .navbar a::before,
-    .navbar a::after {
-        content: '';
-        height: 14px;
-        width: 14px;
-        color: #22afe6;
-        position: absolute;
-        transition: all .35s ease;
-        opacity: 0;
-    }
-
-    .navbar a::before {
-        content: '';
-        right: 0;
-        top: 0;
-        color: #22afe6;
-        border-top: 3px solid #22afe6;
-        border-right: 3px solid #22afe6;
-        transform: translate(-100%, 50%);
-    }
-
-    .navbar a:after {
-        content: '';
-        left: 0;
-        bottom: 0;
-        color: #22afe6;
-        border-bottom: 3px solid #22afe6;
-        border-left: 3px solid #22afe6;
-        transform: translate(100%, -50%)
-    }
-
-    .navbar a:hover:before,
-    .navbar a:hover:after {
-        transform: translate(0,0);
-        opacity: 1;
-    }
-    
     img {
         vertical-align: middle;
         border-style: none;
+        margin-right: 300px;
         width: 200px;
     }
 
     .nav-item a{
         display: block;
         font-size: 30px;
+        font-weight: bold;
         padding: 0px 20px;
         color: white;
         text-align: center;
@@ -454,15 +368,11 @@
     }
 
     #vehiculos{
-        color: #22afe6;
+        border-bottom: 1px inset white;
     }
 
-    #reportes:hover{
-        color: #22afe6;
-    }
-
-    #logout:hover{
-        color: #22afe6;
+    a:active{
+        border:1px solid #fff
     }
 
     .separador{
@@ -472,26 +382,29 @@
         grid-row-start: 1;
         grid-row-end: 2;
         margin-top: 90px;
-        width: 40%;
+        width: 100%;
         height: 70px;
         text-align: center;
-        margin-left: 30%;
-        border-radius: 50px;
-    }
-    
-    /* Logo EliteFlowers */
-    .logoElite{
-        height: 70px;
-        width: 350px;
+        align-items: center;
+        /* margin-left: 25%; */
+        border-radius: 20px;
     }
 
-    /* p{
+    .logoElite{
+        margin: 0px;
+        height: 70px;
+        width: 400px;
+        margin-top: 25px;
+    }
+
+    p{
         margin: 12px;
         text-align: center;    
         font-size: 22px;
         color: white;
+        font-family: Publio-Regular;
         margin-top: 0;
-    } */
+    }
 
     /*Datos*/
     .datos{
@@ -507,18 +420,10 @@
         grid-column-end: -1;
         grid-row-start: 1;
         grid-row-end: 2;
-        margin: 0px 0px 15px 15px; 
+        margin: 50px 0px 15px 15px; 
+        color: #fff;
     }
 
-    .enlace{
-        border: 1px solid black;
-        background: #142137;
-        color: white;
-        padding: 5px 20px;
-        border-radius: 50px;
-    }
-    
-    /* Div-Table */
     .dataTable{
         overflow-y: auto;
         scrollbar-color: #142137;
@@ -530,60 +435,51 @@
         padding: 0;
         margin: 0px 15px;
         overflow-anchor: auto;
-        border: 1px solid #142137;
+        border: 1px solid #fff;
+        /* margin-top: 20px; */
+        font-family: 'Lato', sans-serif;
     }
 
-    #Tabla{
-        width: 860px;
-    }
-
-    #Tabla tr:hover {
-		background-color: #F2F2F2;
-	}
-
-	#Tabla .hidden_row {
-		display: none;
-        background: #9f9d9c;
-	}
-
-    /* Encabezado Tabla */
     thead{
         position: static;
     }
 
+    /* Encabezado Tabla */
     th {     
-        color: #fff;
+        color: #000;
         font-size: 18px;
         font-weight: normal;     
         padding: 1px;     
         margin-top: 0px;
-        background: rgb(20, 33, 55);
+        /* background: rgb(20, 33, 55); */
+        background: #9F9D9C;
         letter-spacing: 1px;
         text-align: center;
-        font-family: 'Lato', sans-serif;
+        /* font-family: 'Lato', sans-serif; */
+        font-family: Arial, Helvetica, sans-serif;
     }
+
 
     /* Filas Tabla */
     td {    
         padding: 1px;     
         background: #fff;     
+        /* font-family: 'Bootstrap-icons'; */
+        /* font-family: 'Times New Roman', Times, serif; */
+        /* font-family: 'Lato', sans-serif; */
         font-family: 'Roboto', sans-serif;
         font-size: 15px;
         text-align: center;
         color: black;    
         border: 1px solid #000;
         height: 25px;
+        /* font-weight: bold; */
     }
 
-    #td2{
+    .td2{
         background: #9F9D9C;
-        color: #000;
+        color: #fff;
         font-size: 16px;
-    }
-
-    .text{
-        color: #142137;
-        font-weight: bold;
     }
 
     tr:hover .td2{
@@ -599,25 +495,25 @@
 
     p.textMap{
         color: black;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 100;
-        font-family: 'Roboto', sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 12px;
         text-align: center;
     }
 
     /* botones tabla */
     i{
-        color: #22afe6;
+        color: red;
         width: 100px;
         height: 100px;
         padding: 5px;
         font-size: 17px;
     }
 
-    button{
-        border: 0;
-        background: transparent;
-    }
+    /* .popup{
+        display: none;
+    } */
 
     #searchInput{
         cursor: pointer;
@@ -632,6 +528,10 @@
         background:rgb(26, 106, 143); 
         border: 1px solid white;
         color: #fff;
+    }
+
+    input{
+        cursor: pointer;
     }
     
     input:checked + label[id="Act"] {
@@ -653,6 +553,11 @@
     label {
         display: inline-block;
         margin-bottom: .5rem;
+        /* padding: 1px; */
+    }
+
+    #Tabla{
+        width: 860px;
     }
 
     #map{
@@ -668,8 +573,10 @@
 
     /*Pie de pagina*/
     .footer{
-        background-color: rgb(20, 33, 55);
-        color:#fff;
+        /* background-color: rgb(20, 33, 55); */
+        background: #fff;
+        /* color:#fff; */
+        color: #142137;
         font-size: 20px;
         padding: 10px;
         text-align: center;
@@ -690,21 +597,20 @@
 
     .popup .close {
         display: none;
-        opacity: 1;
     }
 
     @media screen and (max-width: 768px){
         img {
             vertical-align: middle;
             border-style: none;
-            width: 200px;
+            width: 220px;
             margin: 0;
         }
 
         .logoElite{
             width:258px;
             height: 80px;
-            padding-top: 0;
+            margin-top: 2.5px;
         }
 
         .main-menu-logo{
@@ -714,34 +620,31 @@
             width: 100%;
             background: #142137;
             font-family: 'Raleway', sans-serif;
-            margin: 0;
         }
 
         .navbar-light .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg  xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255 )' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            border: 0;
         }
 
         .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
             color: white;
-            font-size: 25px;
-            padding: 0;
-            margin: 0;
+            font-size: 20px;
+            padding: 2px;
         }
 
         .separador{
             grid-column-start: 1;
             grid-column-end: 5;
-            width: 80%;
-            margin: 90px 0px 10px 10%;
-        }
-
-        .filtro{
-            margin: 0px 0px 10px 0px;
+            width: 100%;
+            margin-top: 90px;
+            margin-left: 0%;
         }
 
         #map{
             width: 380px;
             height: 380px;
+            /* margin: 10px 10px ; */
             border:0;
         }
 
@@ -749,11 +652,10 @@
             overflow-x: auto;
             overflow-y: auto;
             height: 700px;    
-            width: 385px;
+            width: 350px;
             grid-column-start: 1;
             grid-column-end: -1;
-            margin: 0px 0px 15px 15px;
-            border: 0;
+            margin: 0px 0px 15px 0px;
         }
 
         p{
@@ -763,7 +665,7 @@
         }
 
         #Tabla{
-            margin: 0px 0px 15px 0px ;
+            margin: 0px 0px 15px 15px ;
             font-size: 10px;
             grid-row-start: 3;
             grid-row-end: 4;
@@ -776,11 +678,8 @@
             grid-column-end: -1;
         }
 
-        thead{
-            border: 1px solid black;
-        }
-
         .th {
+            border: 1px solid #6988a5;
             font-family: sans-serif;
             font-size: 1.3rem;
             line-height: 1.4;
@@ -856,6 +755,7 @@
         }
     }
 </style>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
